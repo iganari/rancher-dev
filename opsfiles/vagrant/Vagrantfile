@@ -23,7 +23,7 @@ Vagrant.configure(2) do |config|
     end
     ### bug fix
     server.vm.provision 'shell', inline: "ifconfig enp0s8 192.168.33.111"
-    server.vm.provision 'shell', inline: "sed -i 's/exit\ 0/ifconfig\ enp0s8\ 192\.168\.111\.91/g' /etc/rc.local"
+    server.vm.provision 'shell', inline: "sed -i 's/exit\ 0/ifconfig\ enp0s8\ 192\.168\.33\.111/g' /etc/rc.local"
     server.vm.provision 'shell', inline: "echo 'exit 0' >> /etc/rc.local"
     server.vm.provision 'shell', inline: "chmod 644 /home/vagrant/.ssh/authorized_keys"
   end
