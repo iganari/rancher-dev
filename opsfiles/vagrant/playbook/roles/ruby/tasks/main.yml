@@ -1,0 +1,11 @@
+---
+#
+# roles/ruby/tasks/main.yml
+#
+- name: install ruby
+  apt: pkg="{{ item }}" update_cache=yes state=latest
+  with_items:
+  - ruby-full
+
+- name: install bundler
+  shell: gem install bundler

@@ -1,0 +1,85 @@
+---
+#
+# roles/common/tasks/main.yml
+#
+- name: replace rsyslog.conf
+  copy: >
+    src=roles/common/templates/50-default.conf.j2
+    dest=/etc/rsyslog.d/50-default.conf 
+  ignore_errors: true
+  
+- name: restart rsyslog
+  service: name=rsyslog state=restarted
+  ignore_errors: true
+
+- name: apt update
+  apt: upgrade=dist 
+
+- name: install packages from base
+  apt: pkg="{{ item }}" update_cache=yes state=latest
+  with_items:
+  - curl
+  - openssl
+  - tree
+  - telnet
+  - nkf
+  - mlocate
+  - expect
+  - dstat
+  - vim
+  - git
+  - unzip
+  - pwgen
+  - htop
+  - python-pip
+  - python-dev
+  - libmysqlclient-dev
+  tags: packages base
+
+- name: install pip
+  pip: name=MySQL-python
+
+- name: change localtime to JST
+  file: >
+    src=/usr/share/zoneinfo/Asia/Tokyo
+    dest=/etc/localtime
+    force=yes
+    state=link
+- name: setting japanese
+  shell: echo 'LANG="en_US.UTF-8"' > /etc/default/locale
+
+- name: disagree dpkg-reconfigure
+  shell: dpkg-reconfigure -f noninteractive tzdata
+
+- name: force color prompt
+  lineinfile: >
+    dest='/root/.bashrc'
+    state=present
+    backrefs=yes
+    regexp='#force_color_prompt=yes'
+    line='force_color_prompt=yes'
+
+- name: production basic directory
+  file: >
+    path="{{ item }}"
+    state=directory
+    mode=0777
+    group=root
+    owner=root
+    force=yes
+  with_items:
+  - /srv
+  - /usr/share/data
+
+- name: production unique directory
+  file: >
+    path="{{ item }}"
+    state=directory
+    mode=0777
+    group=root
+    owner=root
+    force=yes
+  with_items:
+  - /usr/share/data/crawler-javpop/data
+  - /usr/share/data/crawler-javpop/data/log
+  when: node == 'crawler-javpop'

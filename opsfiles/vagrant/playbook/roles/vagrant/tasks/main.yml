@@ -1,0 +1,11 @@
+---
+#
+# roles/vagrant/tasks/main.yml
+#
+- name: force color prompt
+  lineinfile: >
+    dest='/home/vagrant/.bashrc'
+    state=present
+    backrefs=yes
+    regexp='#force_color_prompt=yes'
+    line='force_color_prompt=yes'

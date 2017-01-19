@@ -1,0 +1,23 @@
+---
+- hosts: vagrant
+  vars:
+    - node: rancher-dev
+  roles:
+    - common
+    - vagrant
+    - docker
+#     - nodejs
+#     - vagrant
+#     - java
+#     - jenkins
+#     - nginx
+#     - datadog
+#     - iptables
+
+- hosts: docker
+  vars:
+    - node: role-check
+  roles:
+    - common
+    - docker
+#     - nodejs

@@ -1,0 +1,88 @@
+Vagrant.configure(2) do |config|
+  # config.vbguest.auto_update = false
+
+  if Vagrant.has_plugin?("vagrant-cachier")
+    config.cache.scope = :box
+  end
+
+  config.vm.define :svr01 do |server|
+    ### determined specific IP.
+    server.vm.network "private_network", ip: "192.168.33.111", auto_config: false
+    ### hostname of server
+    server.vm.hostname = 'rancher-dev01'
+    ### box setting
+    server.vm.box = "bento/ubuntu-16.04"
+    ### vm setting
+    server.vm.provider "virtualbox" do |vb|
+      ### name of virtualbox
+      vb.name = "rancher-dev01"
+      ### spec define
+      vb.customize ['modifyvm', :id,"--memory", 512]
+      vb.customize ['modifyvm', :id,"--natdnshostresolver1", "on"]
+      vb.customize ['modifyvm', :id,"--natdnsproxy1", "on"]
+    end
+    ### bug fix
+    server.vm.provision 'shell', inline: "ifconfig enp0s8 192.168.33.111"
+    server.vm.provision 'shell', inline: "sed -i 's/exit\ 0/ifconfig\ enp0s8\ 192\.168\.111\.91/g' /etc/rc.local"
+    server.vm.provision 'shell', inline: "echo 'exit 0' >> /etc/rc.local"
+    server.vm.provision 'shell', inline: "chmod 644 /home/vagrant/.ssh/authorized_keys"
+  end
+
+  config.vm.define :svr02 do |server|
+    ### determined specific IP.
+    server.vm.network "private_network", ip: "192.168.33.112", auto_config: false
+    ### hostname of server
+    server.vm.hostname = 'rancher-dev02'
+    ### box setting
+    server.vm.box = "bento/ubuntu-16.04"
+    ### vm setting
+    server.vm.provider "virtualbox" do |vb|
+      ### name of virtualbox
+      vb.name = "rancher-dev02"
+      ### spec define
+      vb.customize ['modifyvm', :id,"--memory", 512]
+      vb.customize ['modifyvm', :id,"--natdnshostresolver1", "on"]
+      vb.customize ['modifyvm', :id,"--natdnsproxy1", "on"]
+    end
+    ### bug fix
+    server.vm.provision 'shell', inline: "ifconfig enp0s8 192.168.33.112"
+    server.vm.provision 'shell', inline: "sed -i 's/exit\ 0/ifconfig\ enp0s8\ 192\.168\.112\.91/g' /etc/rc.local"
+    server.vm.provision 'shell', inline: "echo 'exit 0' >> /etc/rc.local"
+    server.vm.provision 'shell', inline: "chmod 644 /home/vagrant/.ssh/authorized_keys"
+  end
+
+  config.vm.define :svr03 do |server|
+    ### determined specific IP.
+    server.vm.network "private_network", ip: "192.168.33.113", auto_config: false
+    ### hostname of server
+    server.vm.hostname = 'rancher-dev03'
+    ### box setting
+    server.vm.box = "bento/ubuntu-16.04"
+    ### vm setting
+    server.vm.provider "virtualbox" do |vb|
+      ### name of virtualbox
+      vb.name = "rancher-dev03"
+      ### spec define
+      vb.customize ['modifyvm', :id,"--memory", 512]
+      vb.customize ['modifyvm', :id,"--natdnshostresolver1", "on"]
+      vb.customize ['modifyvm', :id,"--natdnsproxy1", "on"]
+    end
+    ### bug fix
+    server.vm.provision 'shell', inline: "ifconfig enp0s8 192.168.33.113"
+    server.vm.provision 'shell', inline: "sed -i 's/exit\ 0/ifconfig\ enp0s8\ 192\.168\.113\.91/g' /etc/rc.local"
+    server.vm.provision 'shell', inline: "echo 'exit 0' >> /etc/rc.local"
+    server.vm.provision 'shell', inline: "chmod 644 /home/vagrant/.ssh/authorized_keys"
+  end
+
+
+  ### settitng of synced_folder
+  config.vm.synced_folder "../../", "/develop/rancher-dev", \
+    :create => true, \
+    :owner  => 'vagrant', \
+    :group  => 'vagrant', \
+    :mount_options => ['dmode=755,fmode=755']
+
+  # config.vm.provision :shell, :path => "ssh/init.sh"
+  config.vm.provision :shell, inline: "/bin/bash /develop/rancher-dev/opsfiles/vagrant/provision.sh vagrant"
+
+end
