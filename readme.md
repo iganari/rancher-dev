@@ -14,6 +14,7 @@ IP | hostname | VirtualBox name | vagrant name
 :-:|:-:|:-:|:-:
 192.168.133.111 | rancher-dev01 | rancher-dev01 | svr01
 192.168.133.112 | rancher-dev02 | rancher-dev02 | svr02
+192.168.133.113 | rancher-dev03 | rancher-dev03 | svr03
 
 ### rancher hostので作業
 
