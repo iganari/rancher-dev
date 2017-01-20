@@ -3,8 +3,8 @@
 ### 設置方法
 
 ```
-$ git clone XXX
-$ cd XXX/opsfiles/vagrant
+$ git@github.com:iganari/rancher-dev.git
+$ cd rancher-dev/opsfiles/vagrant
 $ vagrant up
 ```
 
