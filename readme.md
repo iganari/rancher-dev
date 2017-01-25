@@ -8,7 +8,7 @@ $ cd rancher-dev/opsfiles/vagrant
 $ vagrant up
 ```
 
-これで2台のUbuntuが立ち上がる。
+これで3台のUbuntuが立ち上がる。
 
 IP | hostname | VirtualBox name | vagrant name
 :-:|:-:|:-:|:-:
