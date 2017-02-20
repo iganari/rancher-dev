@@ -8,4 +8,5 @@
   roles:
     - common
     - vagrant
-    - docker 
+    - docker
+    - rancher

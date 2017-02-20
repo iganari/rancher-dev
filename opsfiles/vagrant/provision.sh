@@ -24,4 +24,9 @@ apt_install_ansible
 
 ### ansible-playbook 
 playbook_dir='/develop/rancher-dev/opsfiles/vagrant/playbook'
-ansible-playbook        -i ${playbook_dir}/vagrant ${playbook_dir}/webservers.yml
+if [ "$1" = "rancher" ]; then
+  ansible-playbook        -i ${playbook_dir}/vagrant ${playbook_dir}/webserver-rancher.yml
+else
+  ansible-playbook        -i ${playbook_dir}/vagrant ${playbook_dir}/webservers.yml
+fi
+
