@@ -30,3 +30,5 @@ else
   ansible-playbook        -i ${playbook_dir}/vagrant ${playbook_dir}/webservers.yml
 fi
 
+
+echo "http://192.168.33.111:8080/"

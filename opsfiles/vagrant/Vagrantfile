@@ -17,7 +17,7 @@ Vagrant.configure(2) do |config|
       ### name of virtualbox
       vb.name = "rancher-dev01"
       ### spec define
-      vb.customize ['modifyvm', :id,"--memory", 512]
+      vb.customize ['modifyvm', :id,"--memory", 1024]
       vb.customize ['modifyvm', :id,"--natdnshostresolver1", "on"]
       vb.customize ['modifyvm', :id,"--natdnsproxy1", "on"]
     end
@@ -49,7 +49,7 @@ Vagrant.configure(2) do |config|
       ### name of virtualbox
       vb.name = "rancher-dev02"
       ### spec define
-      vb.customize ['modifyvm', :id,"--memory", 512]
+      vb.customize ['modifyvm', :id,"--memory", 1024]
       vb.customize ['modifyvm', :id,"--natdnshostresolver1", "on"]
       vb.customize ['modifyvm', :id,"--natdnsproxy1", "on"]
     end
@@ -81,7 +81,7 @@ Vagrant.configure(2) do |config|
       ### name of virtualbox
       vb.name = "rancher-dev03"
       ### spec define
-      vb.customize ['modifyvm', :id,"--memory", 512]
+      vb.customize ['modifyvm', :id,"--memory", 1024]
       vb.customize ['modifyvm', :id,"--natdnshostresolver1", "on"]
       vb.customize ['modifyvm', :id,"--natdnsproxy1", "on"]
     end
