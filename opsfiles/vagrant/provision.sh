@@ -15,8 +15,8 @@ apt_install_ansible()
   CODENAME='xenial'
   apt install -y software-properties-common
   apt-add-repository ppa:ansible/ansible
-  apt update
-  apt install -y ansible
+  apt-get update
+  apt-get install -y ansible
 }
 
 ### install ansible
